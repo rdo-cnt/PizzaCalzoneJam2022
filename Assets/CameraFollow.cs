@@ -10,7 +10,7 @@ public class CameraFollow : MonoBehaviour
     public bool lookAtTarget;
     public bool followTarget;
     [Range(0, 1)]
-    public float smoothSpeed;
+    public float smoothSpeed = .125f;
     public Vector3 offset;
     public Transform cameraPos;
 
@@ -36,7 +36,7 @@ public class CameraFollow : MonoBehaviour
         if(followTarget)
         {
             transform.position = Vector3.SmoothDamp(transform.position, desiredPos, ref velocity, smoothSpeed);
-            if(!lookAtTarget)transform.rotation = Quaternion.Slerp(transform.rotation, Quaternion.Euler(Vector3.zero),smoothSpeed);
+            if(!lookAtTarget)transform.rotation = Quaternion.Slerp(transform.rotation, cameraPos.rotation,smoothSpeed);
         }
         else
         {
