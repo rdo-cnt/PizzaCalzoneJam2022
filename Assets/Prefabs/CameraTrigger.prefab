@@ -95,3 +95,4 @@ MonoBehaviour:
   lookAtTarget: 0
   cameraOffset: {x: 0, y: 0, z: 0}
   cameraPos: {fileID: 5566011890937377244}
+  gizmoAlpha: 10

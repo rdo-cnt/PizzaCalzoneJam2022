@@ -28,13 +28,15 @@ public class NoiseController : MonoBehaviour
     public float jetpackForce;
     public float dashForce;
     public bool canDash = true;
+    public GameObject[] jetSystem;
     
     [Header("Physics")]
     public float gravity = 1;
     public float fallMultiplier = 5;
 
-    [Header("Particle Syetems")]
-    public ParticleSystem jetSystem;
+    [Header("GameObjects")]
+    public GameObject jetPack;
+    public GameObject cape;
 
     Canvas canvas;
     TextMeshPro fuelText;
@@ -101,6 +103,7 @@ public class NoiseController : MonoBehaviour
         if(isHoldingJump && isGrounded)
         {
             Jump();
+            Debug.Log("Jump");
         }
     }
 
@@ -117,11 +120,21 @@ public class NoiseController : MonoBehaviour
             usingJetpack = true;
             fuel -= Time.fixedDeltaTime * 50;
             rb.AddForce(Vector3.up * jetpackForce);
-            if(!jetSystem.isPlaying)jetSystem.Play();
+            foreach (GameObject system in jetSystem)
+            {
+                system.SetActive(true);
+            }
+            jetPack.SetActive(true);
+            cape.SetActive(false);
         }else
         {
             usingJetpack = false;
-            if(jetSystem.isPlaying)jetSystem.Stop();
+            jetPack.SetActive(false);
+            cape.SetActive(true);
+            foreach (GameObject system in jetSystem)
+            {
+                system.SetActive(false);
+            }
         }
 
         if(isGrounded)
@@ -138,12 +151,19 @@ public class NoiseController : MonoBehaviour
 
     IEnumerator Dash()
     {
+        Animator jetPackAnimator = jetPack.GetComponent<Animator>();
         canDash = false;
         canMove = false;
         fuel -= 30;
         rb.velocity = Vector3.zero;
         rb.AddForce(transform.forward * dashForce, ForceMode.Impulse);
+        jetPackAnimator.SetBool("Dashing?", true);
+        jetPack.SetActive(true);
+        cape.SetActive(false);
         yield return new WaitForSeconds(.25f);
+        jetPackAnimator.SetBool("Dashing?", false);
+        jetPack.SetActive(false);
+        cape.SetActive(true);
         rb.velocity = Vector3.zero;
         canMove = true;
     }
