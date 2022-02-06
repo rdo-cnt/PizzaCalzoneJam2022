@@ -41,6 +41,6 @@ public class RoboPeppino : MonoBehaviour
         Noise.GetComponent<Rigidbody>().isKinematic = false;
         putNoiseOnHand = false;
         Noise.GetComponent<Rigidbody>().AddForce(Vector3.up * 50, ForceMode.Impulse);
-        Noise.GetComponent<Rigidbody>().AddForce(transform.forward * 6, ForceMode.Impulse);
+        Noise.GetComponent<Rigidbody>().AddForce(transform.forward * 7, ForceMode.Impulse);
     }
 }

@@ -5,7 +5,6 @@ using UnityEngine;
 public class CameraFollow : MonoBehaviour
 {
     public Transform target;
-    public GameObject Noise;
     public CameraTrigger cameraTrigger;
     public bool lookAtTarget;
     public bool followTarget;
@@ -19,6 +18,11 @@ public class CameraFollow : MonoBehaviour
     private Vector3 desiredPos;
     private Vector3 velocity = Vector3.zero;
     // Start is called before the first frame update
+
+    private void Awake() {
+        target = GameObject.Find("Noise").transform;
+    }
+
     void Start()
     {
         

@@ -17,7 +17,7 @@ public class CameraTrigger : MonoBehaviour
     private void Awake()
     {
         Noise = GameObject.Find("Noise");
-        cameraFollow = GameObject.FindObjectOfType<CameraFollow>();
+        cameraFollow = FindObjectOfType<CameraFollow>();
     }
 
     private void OnTriggerEnter(Collider other)

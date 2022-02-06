@@ -1,0 +1,50 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!21 &2100000
+Material:
+  serializedVersion: 6
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_Name: Freball Material
+  m_Shader: {fileID: -6465566751694194690, guid: f4bd72b05e4d3034ea1cfe281abde236, type: 3}
+  m_ShaderKeywords: 
+  m_LightmapFlags: 4
+  m_EnableInstancingVariants: 0
+  m_DoubleSidedGI: 0
+  m_CustomRenderQueue: -1
+  stringTagMap: {}
+  disabledShaderPasses: []
+  m_SavedProperties:
+    serializedVersion: 3
+    m_TexEnvs:
+    - Texture2D_7cacd4ab1154475f8b862407e09d2db2:
+        m_Texture: {fileID: 2800000, guid: 1cfa2b469baebff46b40c0e70f6cc117, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - Texture2D_9c7acf4d66a84c7883aac0d9a9be4943:
+        m_Texture: {fileID: 2800000, guid: aa9e5742ee289254a874ff105dc4c3d8, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - unity_Lightmaps:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - unity_LightmapsInd:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - unity_ShadowMasks:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    m_Floats:
+    - Vector1_3f91ec20caaa43cfb164f24a3bf7cca6: 6.78
+    - Vector1_7a109108da6a42e18dbbbc1d8b08fc5d: 4.59
+    - Vector1_dc45efa182e74d12b1646f3da37e2347: 1.65
+    m_Colors:
+    - Color_02c700a8068b486cad7f4dcc4f15821d: {r: 1, g: 0.5464047, b: 0, a: 0}
+    - Color_28d226beb2dc4cc6b02cd049a3b17b1f: {r: 1.8443027, g: 0.12552845, b: 0, a: 0}
+    - Color_7c70529ba27b47de947eb92f78fbce23: {r: 1, g: 1, b: 1, a: 0}
+  m_BuildTextureStacks: []

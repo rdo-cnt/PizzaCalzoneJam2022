@@ -38,6 +38,9 @@ public class NoiseController : MonoBehaviour
     public GameObject jetPack;
     public GameObject cape;
 
+    [Header("Combat")]
+    public float knockbackStrength;
+
     Canvas canvas;
     TextMeshPro fuelText;
     
@@ -49,13 +52,13 @@ public class NoiseController : MonoBehaviour
 
     private void Update() {
         HandleInput();
-        HandleJump();
         DoDash();
     }
 
     private void FixedUpdate() {
         Movement();
         GroundCheck();
+        HandleJump();
         Jetpack();
     }
 
@@ -167,10 +170,18 @@ public class NoiseController : MonoBehaviour
         rb.velocity = Vector3.zero;
         canMove = true;
     }
-
+    
     void GroundCheck()
     {
         isGrounded = Physics.Raycast(transform.position + Vector3.up, Vector3.down, 1.1f);
+    }
+
+    public IEnumerator Knockback(Vector3 direction)
+    {
+        rb.AddForce(direction * knockbackStrength, ForceMode.Impulse);
+        canMove = false;
+        yield return new WaitForSeconds(1);
+        canMove = true;
     }
     
 
