@@ -14,6 +14,7 @@ public class NoiseController : MonoBehaviour
     Vector2 movementInput;
     bool isHoldingJump;
     bool isHoldingDash;
+    bool isJumpLockingJetpack;
 
     [Header("Movement")]
     public bool canMove = true;
@@ -21,10 +22,13 @@ public class NoiseController : MonoBehaviour
     public float jumpHeight;
     public bool isGrounded;
     public bool canJetpack;
+    float jumpReleaseVelocityThreshold = 0.5f; 
 
     [Header("Jetpack")]
     public bool usingJetpack;
-    public float fuel = 100;
+    public float initialFuelCharges = 1;
+     [HideInInspector] public float fuel = 1;
+    public float jetpackCooldown = 0.5f; //in seconds
     public float jetpackForce;
     public float dashForce;
     public bool canDash = true;
@@ -48,6 +52,11 @@ public class NoiseController : MonoBehaviour
         inputActions = new PlayerInputActions();
         rb = GetComponent<Rigidbody>();
         animator = GetComponent<Animator>();
+        initializeVariables();
+    }
+
+    private void initializeVariables(){
+        fuel = initialFuelCharges;
     }
 
     private void Update() {
@@ -106,8 +115,28 @@ public class NoiseController : MonoBehaviour
         if(isHoldingJump && isGrounded)
         {
             Jump();
+            isJumpLockingJetpack = true;
             Debug.Log("Jump");
+
         }
+
+        //Enable shorthops and allow noise to jetpack
+        if(!isHoldingJump && !isGrounded && !usingJetpack)
+        {
+            Debug.Log("released post jump");
+            if (isJumpLockingJetpack)
+            {
+                isJumpLockingJetpack = false;
+                if (rb.velocity.y > jumpReleaseVelocityThreshold)
+                {
+                    Debug.Log("erm");
+                    rb.velocity = new Vector3(rb.velocity.x, rb.velocity.y/5, rb.velocity.z);
+                    rb.AddForce(Vector3.up * jumpReleaseVelocityThreshold, ForceMode.Impulse);
+                }
+            }
+            
+        }
+
     }
 
     void Jump()
@@ -118,22 +147,20 @@ public class NoiseController : MonoBehaviour
 
     void Jetpack()
     {
-        if(!isGrounded && isHoldingJump && fuel > 0)
+        if(!isGrounded && !isJumpLockingJetpack && isHoldingJump && fuel > 0)
         {
-            usingJetpack = true;
-            fuel -= Time.fixedDeltaTime * 50;
-            rb.AddForce(Vector3.up * jetpackForce);
+            showJetpack();
+            fuel -= 1;
+            rb.velocity = new Vector3(rb.velocity.x, 0, rb.velocity.z);
+            rb.AddForce(Vector3.up * jetpackForce, ForceMode.Impulse);
             foreach (GameObject system in jetSystem)
             {
                 system.SetActive(true);
             }
-            jetPack.SetActive(true);
-            cape.SetActive(false);
+            
         }else
         {
-            usingJetpack = false;
-            jetPack.SetActive(false);
-            cape.SetActive(true);
+            
             foreach (GameObject system in jetSystem)
             {
                 system.SetActive(false);
@@ -142,10 +169,29 @@ public class NoiseController : MonoBehaviour
 
         if(isGrounded)
         {
-            fuel = 100;
+            fuel = initialFuelCharges;
             canDash = true;
+            hideJetpack();
         } 
     }
+
+    void showJetpack()
+    {
+        usingJetpack = true;
+        jetPack.SetActive(true);
+        cape.SetActive(false);
+    }
+
+    void hideJetpack()
+    {
+        if(usingJetpack)
+        {
+            usingJetpack = false;
+            jetPack.SetActive(false);
+            cape.SetActive(true);
+        }
+    }
+
 
     void DoDash()
     {
@@ -163,13 +209,14 @@ public class NoiseController : MonoBehaviour
         jetPackAnimator.SetBool("Dashing?", true);
         jetPack.SetActive(true);
         cape.SetActive(false);
-        yield return new WaitForSeconds(.25f);
+        yield return new WaitForSeconds(jetpackCooldown);
         jetPackAnimator.SetBool("Dashing?", false);
         jetPack.SetActive(false);
         cape.SetActive(true);
         rb.velocity = Vector3.zero;
         canMove = true;
     }
+
     
     void GroundCheck()
     {
