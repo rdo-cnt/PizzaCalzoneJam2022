@@ -6,6 +6,6 @@ public class LevelSelectSubmenu : MonoBehaviour
 {
     public void OnClick_Back()
     {
-        
+        MainMenuManager.OpenMenu(MainMenu.MAIN_MENU,gameObject);
     }
 }
