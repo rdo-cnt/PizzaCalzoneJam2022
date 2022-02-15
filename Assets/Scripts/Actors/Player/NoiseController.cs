@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
 
-public class NoiseController : MonoBehaviour
+public class NoiseController : CharacterBase
 {
     PlayerInputActions inputActions;
     Rigidbody rb;
@@ -231,6 +231,22 @@ public class NoiseController : MonoBehaviour
         canMove = false;
         yield return new WaitForSeconds(1);
         canMove = true;
+    }
+
+    public IEnumerator Invulnerability()
+    {
+        //Make player invulnerable
+        
+        yield return new WaitForSeconds(3);
+
+        //Make player vulnerable
+
+    }
+
+    protected void Hurt()
+    {
+        Debug.Log("Ouchie by noise!!");
+        
     }
     
 
