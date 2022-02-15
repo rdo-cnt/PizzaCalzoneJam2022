@@ -33,6 +33,7 @@ public class NoiseController : MonoBehaviour
     public float dashForce;
     public bool canDash = true;
     public GameObject[] jetSystem;
+    public bool isHoldingJetpack;
     
     [Header("Physics")]
     public float gravity = 1;
@@ -84,6 +85,7 @@ public class NoiseController : MonoBehaviour
         movementInput.Normalize();
         isHoldingJump = inputActions.Noise.Jump.IsPressed();
         isHoldingDash = inputActions.Noise.Dash.IsPressed();
+        isHoldingJetpack = inputActions.Noise.Jetpack.IsPressed();
     }
 
     void Movement()

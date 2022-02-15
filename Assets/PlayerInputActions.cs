@@ -53,6 +53,15 @@ public partial class @PlayerInputActions : IInputActionCollection2, IDisposable
                     ""processors"": """",
                     ""interactions"": """",
                     ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""Jetpack"",
+                    ""type"": ""Button"",
+                    ""id"": ""37738a6b-9a0c-46e2-b80a-a5638d49b6d7"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
                 }
             ],
             ""bindings"": [
@@ -165,6 +174,17 @@ public partial class @PlayerInputActions : IInputActionCollection2, IDisposable
                     ""action"": ""Dash"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""69046432-c2cf-4d12-b226-fce12b952cea"",
+                    ""path"": ""<Keyboard>/leftCtrl"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Jetpack"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
                 }
             ]
         }
@@ -176,6 +196,7 @@ public partial class @PlayerInputActions : IInputActionCollection2, IDisposable
         m_Noise_Move = m_Noise.FindAction("Move", throwIfNotFound: true);
         m_Noise_Jump = m_Noise.FindAction("Jump", throwIfNotFound: true);
         m_Noise_Dash = m_Noise.FindAction("Dash", throwIfNotFound: true);
+        m_Noise_Jetpack = m_Noise.FindAction("Jetpack", throwIfNotFound: true);
     }
 
     public void Dispose()
@@ -238,6 +259,7 @@ public partial class @PlayerInputActions : IInputActionCollection2, IDisposable
     private readonly InputAction m_Noise_Move;
     private readonly InputAction m_Noise_Jump;
     private readonly InputAction m_Noise_Dash;
+    private readonly InputAction m_Noise_Jetpack;
     public struct NoiseActions
     {
         private @PlayerInputActions m_Wrapper;
@@ -245,6 +267,7 @@ public partial class @PlayerInputActions : IInputActionCollection2, IDisposable
         public InputAction @Move => m_Wrapper.m_Noise_Move;
         public InputAction @Jump => m_Wrapper.m_Noise_Jump;
         public InputAction @Dash => m_Wrapper.m_Noise_Dash;
+        public InputAction @Jetpack => m_Wrapper.m_Noise_Jetpack;
         public InputActionMap Get() { return m_Wrapper.m_Noise; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
@@ -263,6 +286,9 @@ public partial class @PlayerInputActions : IInputActionCollection2, IDisposable
                 @Dash.started -= m_Wrapper.m_NoiseActionsCallbackInterface.OnDash;
                 @Dash.performed -= m_Wrapper.m_NoiseActionsCallbackInterface.OnDash;
                 @Dash.canceled -= m_Wrapper.m_NoiseActionsCallbackInterface.OnDash;
+                @Jetpack.started -= m_Wrapper.m_NoiseActionsCallbackInterface.OnJetpack;
+                @Jetpack.performed -= m_Wrapper.m_NoiseActionsCallbackInterface.OnJetpack;
+                @Jetpack.canceled -= m_Wrapper.m_NoiseActionsCallbackInterface.OnJetpack;
             }
             m_Wrapper.m_NoiseActionsCallbackInterface = instance;
             if (instance != null)
@@ -276,6 +302,9 @@ public partial class @PlayerInputActions : IInputActionCollection2, IDisposable
                 @Dash.started += instance.OnDash;
                 @Dash.performed += instance.OnDash;
                 @Dash.canceled += instance.OnDash;
+                @Jetpack.started += instance.OnJetpack;
+                @Jetpack.performed += instance.OnJetpack;
+                @Jetpack.canceled += instance.OnJetpack;
             }
         }
     }
@@ -285,5 +314,6 @@ public partial class @PlayerInputActions : IInputActionCollection2, IDisposable
         void OnMove(InputAction.CallbackContext context);
         void OnJump(InputAction.CallbackContext context);
         void OnDash(InputAction.CallbackContext context);
+        void OnJetpack(InputAction.CallbackContext context);
     }
 }
