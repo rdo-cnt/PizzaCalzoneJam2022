@@ -9,6 +9,7 @@ public class NoiseController : CharacterBase
     Rigidbody rb;
     Animator animator;
     public Camera cam;
+    internal CharacterHealthManager healthManager;
 
     [Header("Input")]
     Vector2 movementInput;
@@ -51,6 +52,7 @@ public class NoiseController : CharacterBase
     private void Awake() {
         inputActions = new PlayerInputActions();
         rb = GetComponent<Rigidbody>();
+        healthManager = GetComponent<CharacterHealthManager>();
         animator = GetComponent<Animator>();
         initializeVariables();
     }
