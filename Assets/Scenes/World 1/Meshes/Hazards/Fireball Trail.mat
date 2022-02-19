@@ -1,0 +1,53 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!21 &2100000
+Material:
+  serializedVersion: 6
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_Name: Fireball Trail
+  m_Shader: {fileID: -6465566751694194690, guid: 7f9c077aadb7cf142ab6422acbc1fcbf, type: 3}
+  m_ShaderKeywords: 
+  m_LightmapFlags: 4
+  m_EnableInstancingVariants: 0
+  m_DoubleSidedGI: 0
+  m_CustomRenderQueue: -1
+  stringTagMap: {}
+  disabledShaderPasses: []
+  m_SavedProperties:
+    serializedVersion: 3
+    m_TexEnvs:
+    - Texture2D_d438b4eaadd34821ada898b95a5dadcd:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - Texture2D_e33200f6232442eda3e35c07da9be6e2:
+        m_Texture: {fileID: 2800000, guid: 6e6ebd4044f362944af9ad36ca0442fe, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - unity_Lightmaps:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - unity_LightmapsInd:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - unity_ShadowMasks:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    m_Floats:
+    - Vector1_1086cde1357345639f2fe71aedc8d50e: 1
+    - Vector1_7f9b9891f4fb4c709d5a871849fb53b1: 25
+    - Vector1_807d1fb6fca54e8ea93d2334fac18dfc: 10
+    - Vector1_e40ea81a510846a08ef2d3780874daf4: 14.28
+    m_Colors:
+    - Color_18c429304aef46a18e3f89822aea3e7c: {r: 30.209375, g: 7.989645, b: 0, a: 1}
+    - Color_6cdbea7e62a04eb3908e6ac60e54071b: {r: 4.867144, g: 0.8409202, b: 0, a: 0}
+    - Vector2_0cc1483c5b4543698c736d291e8666a4: {r: 1, g: 0, b: 0, a: 0}
+    - Vector2_764d8449cd78409aa6d691fea478d0fc: {r: 0.01, g: 100, b: 0, a: 0}
+    - Vector2_e0bf43bb4c41499db7178a08369c5a8a: {r: -1, g: 0, b: 0, a: 0}
+  m_BuildTextureStacks: []

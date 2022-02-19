@@ -5,25 +5,26 @@ using UnityEngine;
 public class FireballSpawner : MonoBehaviour
 {
     [SerializeField]private GameObject fireball;
-    public float spawnRate;
     public GameObject noise;
-    public float range;
-    public float height;
-    public bool canSpawnFireball;
-    public float fireballSpeed;
-    public float xPos;
-    public float yPos;
+    [Header("Fireball")]
+    public bool spawnFireball = true;
     public float timeBetweenEachFireball;
-    public GameObject fireballHitParticleSystem;
-    // Start is called before the first frame update
+    public float fireballSpeed;
+    public float height;
+    public float range;
+    public bool canSpawnFireball = true;
 
-    void Start()
+    void OnEnable()
     {
         noise = GameObject.Find("Noise");
         StartCoroutine(SpawnFireballs());
     }
 
-    // Update is called once per frame
+    void OnDisable()
+    {
+
+    }
+
     void Update()
     {
 
@@ -32,7 +33,7 @@ public class FireballSpawner : MonoBehaviour
     void SpawnFireball()
     {
         Debug.Log("Spawned Fireball");
-        GameObject newFireball = Instantiate(fireball, new Vector3(Random.insideUnitSphere.x * range + noise.transform.position.x, height, Random.insideUnitSphere.z * range + noise.transform.position.z), Quaternion.identity);
+        GameObject newFireball = Instantiate(fireball, new Vector3(Random.insideUnitSphere.x * range + noise.transform.position.x, noise.transform.position.y + height, Random.insideUnitSphere.z * range + noise.transform.position.z), Quaternion.identity);
         newFireball.GetComponent<Rigidbody>().velocity = new Vector3(0, -fireballSpeed, 0);
     }
 
@@ -40,10 +41,17 @@ public class FireballSpawner : MonoBehaviour
     {
         while (canSpawnFireball)
         {
-            canSpawnFireball = false;
-            SpawnFireball();
-            yield return new WaitForSeconds(timeBetweenEachFireball);
-            canSpawnFireball = true; 
+            if(spawnFireball == true)
+            {
+                canSpawnFireball = false;
+                SpawnFireball();
+                yield return new WaitForSeconds(timeBetweenEachFireball);
+                canSpawnFireball = true; 
+            }
+            else
+            {
+                yield return new WaitForSeconds(1);
+            }
         }
 
     }

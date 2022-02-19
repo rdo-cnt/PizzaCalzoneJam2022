@@ -94,7 +94,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b1aec6770e3569a4f9fca9f6e918682f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  parent: {fileID: 0}
   _parentOffset: {x: 0, y: 0.01, z: 0}
   _layerMask:
     serializedVersion: 2
     m_Bits: 256
+  alphaMultiplier: 1

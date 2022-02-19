@@ -5,25 +5,27 @@ using UnityEngine;
 public class Fireball : MonoBehaviour
 {
     private Destroy destroyScript;
-    public GameObject shadow;
     public LayerMask Enviorenment;
     public GameObject fireballHitParticleSystem;
-    // Start is called before the first frame update
+    public RaycastHit hit;
+    SphereCollider col;
+
     void Start()
     {
-        destroyScript = GetComponent<Destroy>();
+        destroyScript = this.GetComponent<Destroy>();
+        col = this.GetComponent<SphereCollider>();
+        Physics.Raycast(transform.position + Vector3.down, Vector3.down, out hit, 10000);
     }
 
-    // Update is called once per frame
-    void Update()
+    void OnTriggerEnter(Collider other)
     {
-
+        col.enabled = false;
+        Instantiate(fireballHitParticleSystem, this.hit.point, Quaternion.identity);
+        destroyScript.DestroyObject(gameObject, destroyScript.time);
     }
 
-    private void OnTriggerEnter(Collider other)
-    {
-        destroyScript.DestroyObject(gameObject, 1.4f);
-        Instantiate(fireballHitParticleSystem, transform);
+    private void OnDrawGizmos() {
+        Gizmos.DrawLine(transform.position + Vector3.down, hit.point);
     }
 
 }

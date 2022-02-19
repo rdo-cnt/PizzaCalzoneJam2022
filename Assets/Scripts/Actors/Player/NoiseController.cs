@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Cinemachine;
 using TMPro;
 
 public class NoiseController : CharacterBase
@@ -45,6 +46,8 @@ public class NoiseController : CharacterBase
 
     [Header("Combat")]
     public float knockbackStrength;
+
+    bool inCart;
 
     Canvas canvas;
     TextMeshPro fuelText;
@@ -120,6 +123,16 @@ public class NoiseController : CharacterBase
             isJumpLockingJetpack = true;
             Debug.Log("Jump");
 
+        }
+
+        if(inCart == true && isHoldingJump)
+        {
+            inCart = false;
+            rb.isKinematic = false;
+            transform.localPosition = transform.parent.position;
+            transform.parent.gameObject.SetActive(false);
+            transform.SetParent(null, false);
+            rb.AddForce(Vector3.up * 1, ForceMode.Impulse);
         }
 
         //Enable shorthops and allow noise to jetpack
@@ -255,4 +268,18 @@ public class NoiseController : CharacterBase
     {
         
     }
+
+    private void OnTriggerEnter(Collider other) {
+        if(other.CompareTag("Cart"))
+        {
+            Debug.Log("Entered cart");
+            inCart = true;
+            transform.position = other.transform.position;
+            transform.SetParent(other.transform);
+            other.GetComponent<CinemachineDollyCart>().m_Speed = 0.5f;
+            rb.isKinematic = true;
+        }
+    }
+
+
 }
